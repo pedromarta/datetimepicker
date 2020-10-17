@@ -51,11 +51,11 @@ export default function Picker({
   mode,
   minuteInterval,
   timeZoneOffsetInMinutes,
-  textColor,
   onChange,
   ...otherProps
 }: IOSNativeProps) {
   const [heightStyle, setHeightStyle] = useState(undefined);
+  const [textColor, setTextColor] = useState(undefined);
   const _picker: NativeRef = React.useRef();
   const display = getDisplaySafe(otherProps.display);
 
@@ -83,6 +83,15 @@ export default function Picker({
       }
     },
     [display, mode],
+  );
+
+  useEffect(
+    function setPropsTextColor() {
+      if (otherProps.textColor && heightStyle) {
+        setTextColor(otherProps.textColor);
+      }
+    },
+    [otherProps.textColor, heightStyle]
   );
 
   const _onChange = (event: Event) => {
